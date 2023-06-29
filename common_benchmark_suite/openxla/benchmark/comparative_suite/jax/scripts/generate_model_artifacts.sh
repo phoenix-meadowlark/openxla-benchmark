@@ -33,7 +33,7 @@ WITH_CUDA="${WITH_CUDA:-}"
 # instructions on how to build `iree-opt`.
 IREE_OPT_PATH=$1
 
-VENV_DIR=${VENV_DIR} PYTHON=${PYTHON} WITH_CUDA=${WITH_CUDA} "${TD}/setup_venv.sh"
+# VENV_DIR=${VENV_DIR} PYTHON=${PYTHON} WITH_CUDA=${WITH_CUDA} "${TD}/setup_venv.sh"
 source ${VENV_DIR}/bin/activate
 
 # Generate unique output directory.

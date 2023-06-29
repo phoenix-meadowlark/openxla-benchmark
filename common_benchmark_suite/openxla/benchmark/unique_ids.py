@@ -182,6 +182,16 @@ OUTPUT_DATA_RESNET50_FP32_PT_2048X7X7XF32 = f"{OUTPUT_DATA_RESNET50_PT_2048X7X7}
 OUTPUT_DATA_RESNET50_FP16_PT_2048X7X7XF16 = f"{OUTPUT_DATA_RESNET50_PT_2048X7X7}-fp16"
 
 ################################################################################
+# LmCloudSpmd2B Models                                                         #
+################################################################################
+MODEL_LM_CLOUD_SPMD_2B = "9c7ce455-e19b-42a8-b987-0358b79e97c5-MODEL_LM_CLOUD_SPMD_2B"
+MODEL_LM_CLOUD_SPMD_2B_JAX= f"{MODEL_LM_CLOUD_SPMD_2B}-JAX"
+MODEL_LM_CLOUD_SPMD_2B_JAX_TRAIN= f"{MODEL_LM_CLOUD_SPMD_2B_JAX}-train"
+MODEL_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32 = f"{MODEL_LM_CLOUD_SPMD_2B_JAX_TRAIN}-fp32"
+INPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32 = "bd209d6e-2995-4762-b504-ee5ef0e219de"
+OUTPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32 = "11d1eb78-6e66-4741-8655-6a4b993b5bd3"
+
+################################################################################
 # Device IDs                                                                   #
 ################################################################################
 DEVICE_SPEC_GCP_C2_STANDARD_16 = "9a4804f1-b1b9-46cd-b251-7f16a655f782"

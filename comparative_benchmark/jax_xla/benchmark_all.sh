@@ -38,6 +38,7 @@ declare -a GPU_BENCHMARK_NAMES=(
   "models/BERT_LARGE_FP32_JAX_.+/inputs/.+/expected_outputs/.+/target_devices/a2-highgpu-1g"
   "models/T5_LARGE_FP32_JAX_.+/inputs/.+/expected_outputs/.+/target_devices/a2-highgpu-1g"
   "models/T5_4CG_LARGE_FP32_JAX_.+/inputs/.+/expected_outputs/.+/target_devices/a2-highgpu-1g"
+  "models/LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_.+/inputs/.+/expected_outputs/.+/target_devices/a2-highgpu-1g"
 )
 
 declare -a CPU_BENCHMARK_NAMES=(

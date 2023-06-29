@@ -552,3 +552,67 @@ OUTPUT_DATA_RESNET50_FP16_JAX_2048X7X7XF16_BATCHES = utils.build_batch_model_tes
 OUTPUT_DATA_RESNET50_BF16_JAX_2048X7X7XBF16_BATCHES = utils.build_batch_model_test_data(
     template=OUTPUT_DATA_RESNET50_BF16_JAX_2048X7X7XBF16_BATCH_TEMPLATE,
     batch_sizes=[1, 8, 64, 128, 256, 2048])
+
+# LmCloudSpmd2B Training Inputs
+INPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCH_TEMPLATE = utils.ModelTestDataTemplate(
+    id=utils.BATCH_ID(unique_ids.INPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32),
+    name=utils.BATCH_NAME("INPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32"),
+    tags=["input-data", utils.BATCH_TAG],
+    source_info="Synthetic data.",
+    artifacts={
+        def_types.ModelTestDataFormat.NUMPY_TENSORS:
+            utils.ModelTestDataArtifactTemplate(
+                data_format=def_types.ModelTestDataFormat.NUMPY_TENSORS,
+                data_parameters={
+                    "tensor_names": [
+                        "ids",
+                        "labels",
+                        "paddings",
+                        "segment_ids",
+                        "segment_pos",
+                        "weights",
+                        "eval_sample_weights",
+                    ],
+                    "tensor_dimensions": [
+                        utils.BATCH_TENSOR_DIMS("1024xi32"),
+                        utils.BATCH_TENSOR_DIMS("1024xi32"),
+                        utils.BATCH_TENSOR_DIMS("1024xf32"),
+                        utils.BATCH_TENSOR_DIMS("1024xi32"),
+                        utils.BATCH_TENSOR_DIMS("1024xi32"),
+                        utils.BATCH_TENSOR_DIMS("1024xf32"),
+                        utils.BATCH_TENSOR_DIMS("f32"),
+                    ]
+                },
+                verify_parameters={},
+                source_url=string.Template(
+                    PARENT_GCS_DIR +
+                    "/LM_CLOUD_SPMD_2B_BATCH${batch_size}/inputs_npy.tgz"
+                ))
+    })
+INPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCHES = utils.build_batch_model_test_data(
+    template=INPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCH_TEMPLATE,
+    batch_sizes=[1, 2, 4, 8])
+
+OUTPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCH_TEMPLATE = utils.ModelTestDataTemplate(
+    id=utils.BATCH_ID(unique_ids.OUTPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32),
+    name=utils.BATCH_NAME("OUTPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32"),
+    tags=["input-data", utils.BATCH_TAG],
+    source_info="Synthetic data.",
+    artifacts={
+        def_types.ModelTestDataFormat.NUMPY_TENSORS:
+            utils.ModelTestDataArtifactTemplate(
+                data_format=def_types.ModelTestDataFormat.NUMPY_TENSORS,
+                data_parameters={
+                    "tensor_dimensions": [
+
+                    ]
+                },
+                verify_parameters={},
+                source_url=string.Template(
+                    PARENT_GCS_DIR +
+                    "/LM_CLOUD_SPMD_2B_BATCH${batch_size}/outputs_npy.tgz"
+                ))
+    })
+OUTPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCHES = utils.build_batch_model_test_data(
+    template=OUTPUT_DATA_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCH_TEMPLATE,
+    batch_sizes=[1, 2, 4, 8])

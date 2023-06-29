@@ -397,6 +397,45 @@ RESNET50_BF16_JAX_3X224X224XBF16_BATCHES = utils.build_batch_models(
     template=RESNET50_BF16_JAX_3X224X224XBF16_BATCH_TEMPLATE,
     batch_sizes=[1, 8, 64, 128, 256, 2048])
 
+LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_IMPL = def_types.ModelImplementation(
+    id=unique_ids.MODEL_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32,
+    name="MODEL_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32",
+    tags=["fp32", "transformer-decoder", "lm_cloud"],
+    framework_type=def_types.ModelFrameworkType.JAX,
+    module_path=f"{utils.MODELS_MODULE_PATH}.jax.lm_cloud_spmd_2b.model",
+    source_info="PAX LLM",
+)
+LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCH_TEMPLATE = utils.ModelTemplate(
+    id=utils.BATCH_ID(unique_ids.MODEL_LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32),
+    name=utils.BATCH_NAME("LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32"),
+    tags=[utils.BATCH_TAG],
+    model_impl=LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_IMPL,
+    model_parameters={
+        "batch_size": utils.BATCH_SIZE_PARAM,
+        "data_type": "fp32",
+    },
+    artifacts={
+        def_types.ModelArtifactType.STABLEHLO_MLIR:
+            utils.ModelArtifactTemplate(
+                artifact_type=def_types.ModelArtifactType.STABLEHLO_MLIR,
+                source_url=string.Template(
+                    PARENT_GCS_DIR +
+                    "/LM_CLOUD_SPMD_2B_BATCH${batch_size}/stablehlo.mlirbc"),
+            ),
+        def_types.ModelArtifactType.XLA_HLO_DUMP:
+            utils.ModelArtifactTemplate(
+                artifact_type=def_types.ModelArtifactType.XLA_HLO_DUMP,
+                source_url=string.Template(
+                    PARENT_GCS_DIR +
+                    "/LM_CLOUD_SPMD_2B_BATCH${batch_size}/xla_hlo_before_optimizations.txt"
+                ),
+            ),
+    },
+)
+LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCHES = utils.build_batch_models(
+    template=LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCH_TEMPLATE,
+    batch_sizes=[1, 2, 4, 8])
+
 ALL_MODELS = list(
     itertools.chain(
         T5_LARGE_FP32_JAX_512XI32_BATCHES.values(),
@@ -409,4 +448,5 @@ ALL_MODELS = list(
         RESNET50_FP32_JAX_3X224X224XF32_BATCHES.values(),
         RESNET50_FP16_JAX_3X224X224XF16_BATCHES.values(),
         RESNET50_BF16_JAX_3X224X224XBF16_BATCHES.values(),
+        LM_CLOUD_SPMD_2B_JAX_TRAIN_FP32_BATCHES.values(),
     ))
